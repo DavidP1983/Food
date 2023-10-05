@@ -186,9 +186,9 @@ a {
     display: none;
 }
 
-.tabcontent_visible {
+/* .tabcontent_visible {
     display: block;
-}
+} */
 
 .tabcontent img {
     width: 100%;
