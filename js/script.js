@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modalBtn.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            if ( e.target === btn) {
+            if (e.target === btn) {
                 openModal();
             }
         });
@@ -166,15 +166,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const openModalAuto = setTimeout(openModal, 3000);
 
-   function showModalOnScroll() {
-    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if(window.scrollY >= scrollableHeight -1) {
-       openModal();
-       window.removeEventListener('scroll', showModalOnScroll);
+    function showModalOnScroll() {
+        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (window.scrollY >= scrollableHeight - 1) {
+            openModal();
+            window.removeEventListener('scroll', showModalOnScroll);
 
+        }
     }
-   }
 
-   window.addEventListener('scroll', showModalOnScroll);
+    window.addEventListener('scroll', showModalOnScroll);
 
+
+    // Class Cards
+
+    class Cards {
+        constructor(parent ,src, alt, subtitle, descr, price, ...classes) {
+            this.parent = document.querySelector(parent);
+            this.src = src;
+            this.alt = alt;
+            this.subtitle = subtitle;
+            this.descr = descr;
+            this.price = price;
+            this.classes = classes;
+            this.currency = 2.65;
+            this.exchangeToLary();
+        }
+
+        exchangeToLary() {
+            this.price = this.currency * this.price;
+        }
+        showCards() {
+            const element = document.createElement('div');
+            if(this.classes.length === 0) {
+                this.clazz = 'menu__item';
+                element.classList.add(this.clazz);
+            }else {
+               this.classes.forEach(item => element.classList.add(item)); 
+            }
+             element.innerHTML =`
+
+                <img src=${this.src} alt=${this.alt}>
+                <h3 class="menu__item-subtitle">${this.subtitle}</h3>
+                <div class="menu__item-descr">${this.descr}</div>
+                <div class="menu__item-divider"></div>
+                <div class="menu__item-price">
+                    <div class="menu__item-cost">Цена:</div>
+                    <div class="menu__item-total"><span>${this.price}</span> gel/день</div>
+                </div>`;
+
+            this.parent.append(element);
+        }
+    }
+
+        new Cards('.menu .container', 
+        'img/tabs/vegy.jpg', 
+        'vegy',
+        'Меню "Фитнес"',
+        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+        30).showCards();
+
+        new Cards('.menu .container', 
+        'img/tabs/elite.jpg', 
+        'elite',
+        'Меню “Премиум”',
+        'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
+        25,
+        'menu__item').showCards();
+
+        new Cards('.menu .container', 
+        'img/tabs/post.jpg', 
+        'post',
+        'Меню "Постное"',
+        'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
+        20,
+        'menu__item').showCards();
+
+        
 });
