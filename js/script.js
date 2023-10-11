@@ -242,5 +242,60 @@ document.addEventListener('DOMContentLoaded', () => {
         20,
         'menu__item').showCards();
 
-        
+
+
+    // Forms
+
+    const form = document.querySelectorAll('form');
+    form.forEach(forms => {
+        postData(forms);
+    });
+    
+    function postData(form) {
+
+        const message = {
+            loading: 'Data loading',
+            success: 'Thank you, data have been reseved',
+            failure: 'Samething went wrong'
+        };
+
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const statusMessage = document.createElement('div');
+            statusMessage.textContent = message.loading;
+            form.append(statusMessage);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+            request.setRequestHeader('Content-type', 'application/json');
+
+            const formData = new FormData(form);
+            
+            const obj = {};
+            for (let [key, value] of formData) {
+                obj[key] = value;
+            }
+
+            const json = JSON.stringify(obj);
+            request.send(json);
+
+            request.addEventListener('load', () => {
+                if (request.status === 200) {
+                    console.log(request.response);
+                    statusMessage.textContent = message.success;
+                    form.reset();
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 2000);
+                }else {
+                    statusMessage.textContent = message.failure;
+                }
+            });
+
+        });
+    
+    }
+
 });
