@@ -357,18 +357,20 @@ document.addEventListener('DOMContentLoaded', () => {
         slide[index].style.display = 'block';
         current.textContent = getZeroSlider(index + 1);
     }
+    
+    const autoTimer = setInterval(() => startSlider(index += 1), 2000);
 
-
-    function next() {
-        startSlider(index += 1);
+    function arrows(n) {
+        startSlider(index += n);
+        clearInterval(autoTimer);
     }
 
-    function prev() {
-        startSlider( index -= 1);
-    }
-
-    nextBtn.addEventListener('click', next);
-    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', () => {
+        arrows(1);
+    });
+    prevBtn.addEventListener('click', () => {
+        arrows(-1);
+    });
 
 
 });
