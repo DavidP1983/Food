@@ -1,23 +1,16 @@
+import {modalWindow} from './modal';
+import {postRequest} from '../services/services';
 
-function forms() {
-    // Forms
 
-    const form = document.querySelectorAll('form');
+function forms(formSelector, selectorModal) {
+
+    const {openModal, closeModal} = modalWindow(selectorModal);
+
+    const form = document.querySelectorAll(formSelector);
     form.forEach(forms => {
         sendData(forms);
     });
 
-    const postRequest = async (url, data) => {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: data
-
-        });
-        return await res.json();
-    };
 
     function sendData(form) {
 
@@ -82,4 +75,4 @@ function forms() {
 
 }
 
-module.exports = forms;
+export default forms;

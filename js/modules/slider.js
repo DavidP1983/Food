@@ -1,14 +1,14 @@
 
-function slider() {
+function slider({container, wrapper, inner, slides, currentSlide, totalSlides, prev, next} = {}) {
     // Slider
 
-    const prevBtn = document.querySelector('.offer__slider-prev'),
-        nextBtn = document.querySelector('.offer__slider-next'),
-        sliderWrapper = document.querySelector('.offer__slider-wrapper'),
-        sliderInner = sliderWrapper.querySelector('.offset__slider-inner'),
-        slide = sliderWrapper.querySelectorAll('.offer__slide'),
-        current = document.getElementById('current'),
-        total = document.getElementById('total');
+    const prevBtn = document.querySelector(prev),
+        nextBtn = document.querySelector(next),
+        sliderWrapper = document.querySelector(wrapper),
+        sliderInner = sliderWrapper.querySelector(inner),
+        slide = sliderWrapper.querySelectorAll(slides),
+        current = document.getElementById(currentSlide),
+        total = document.getElementById(totalSlides);
     let index = 1,
         offset = 0;
 
@@ -18,7 +18,7 @@ function slider() {
     sliderWrapper.style.overflow = 'hidden';
 
     //Creat dots
-    const parentSlider = document.querySelector('.offer__slider'),
+    const parentSlider = document.querySelector(container),
         parentDots = document.createElement('ul');
     parentDots.classList.add('carousel-indicators');
     for (let i = 0; i < slide.length; i++) {
@@ -64,9 +64,9 @@ function slider() {
     });
 
 
-    const autoSlider = setInterval(next, 2000);
+    const autoSlider = setInterval(nextSlide, 2000);
 
-    function next() {
+    function nextSlide() {
         if (offset == parseInt(width) * (slide.length - 1)) {
             offset = 0;
             index = 1;
@@ -81,7 +81,7 @@ function slider() {
     }
 
     nextBtn.addEventListener('click', () => {
-        next();
+        nextSlide();
         clearInterval(autoSlider);
     });
 
@@ -101,4 +101,4 @@ function slider() {
 
 }
 
-module.exports = slider;
+export default slider;

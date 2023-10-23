@@ -1,21 +1,32 @@
 "use strict";
 
-const getTabs = require('./modules/tabs');
-const getTimer = require('./modules/timer');
-const getModal = require('./modules/modal');
-const getCards = require('./modules/cards');
-const getForms = require('./modules/forms');
-const getSlider = require('./modules/slider');
-const getCalc = require('./modules/calc');
+import tabs from './modules/tabs';
+import timer  from './modules/timer';
+import modal  from './modules/modal';
+import cards  from './modules/cards';
+import forms  from './modules/forms';
+import slider   from './modules/slider';
+import calc from './modules/calc';
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    getTabs();
-    getTimer();
-    getModal();
-    getCards();
-    getForms();
-    getSlider();
-    getCalc();
+    tabs('.tabcontent', '.tabheader__items', '.tabheader__item', 'tabheader__item_active');
+    timer('.timer', '2023-10-31');
+    modal('[data-modal]', '.modal');
+    cards();
+    forms('form', '.modal');
+    slider({
+        container: '.offer__slider',
+        wrapper: '.offer__slider-wrapper',
+        inner: '.offset__slider-inner',
+        slides: '.offer__slide',
+        currentSlide: 'current',
+        totalSlides: 'total',
+        prev: '.offer__slider-prev',
+        next: '.offer__slider-next'
 
+
+    });
+    calc();
 });

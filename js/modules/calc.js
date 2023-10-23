@@ -1,6 +1,5 @@
 
 function calc() {
-    // Calc
 
     const resultParent = document.querySelector('.calculating__result');
     let sex, height, weight, age, ratio;
@@ -114,4 +113,4 @@ function calc() {
 
 }
 
-module.exports = calc;
+export default calc;
