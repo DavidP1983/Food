@@ -15,7 +15,7 @@ import calc from './modules/calc';
 document.addEventListener('DOMContentLoaded', () => {
 
     tabs('.tabcontent', '.tabheader__items', '.tabheader__item', 'tabheader__item_active');
-    timer('.timer', '2023-10-31');
+    timer('.timer', '2024-10-31');
     modal('[data-modal]', '.modal');
     cards();
     forms('form', '.modal');
